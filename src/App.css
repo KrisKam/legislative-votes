@@ -2,31 +2,41 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+#App-background {
+  background-color: #012f54
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Header-font-weight {
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+.Header-font-style {
+  color: #014454; 
+  font-size: 110%
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Header-dropdown-font {
+  color: #014454;
 }
+
+
+
+
+
+/* darker blue:  #012f54  */
+
+/* dark blue:  (analogous green #015412  / complementary maroon #541a01)
+#014454 #045 darkslategray hsl(191,97,16) rgb(1,68,84)
+
+medium blue:  (analogous green #048219)
+#046c82 #078 teal hsl(190,94,26) rgb(4,108,130)
+
+light blue: (analogous green #13b333)
+#1394b3 #19b lightseagreen hsl(191,80,38) rgb(19,148,179)
+
+red: (complementary green:  #2ad327 / )
+#d32729 #d23 crimson hsl(359,68,49) rgb(211,39,41) */
+
+
+
+
