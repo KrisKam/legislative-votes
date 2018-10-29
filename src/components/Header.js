@@ -1,9 +1,10 @@
-import React from "react";
+import React, {Component} from "react";
 import elephant from "../../src/images/elephant.png";
 import donkey from "../../src/images/donkey.png";
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {Link} from "react-router-dom";
 
-export default class Example extends React.Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -21,10 +22,12 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar className="border-bottom border-secondary Header-font-weight" color="light" light expand="md">
-          <NavbarBrand href="/" >
-            <img src={elephant} alt="Republican Elephant" className="p-2" />
-            <span className="Header-font-style">CO Legislative Tracker</span>
-            <img src={donkey} alt="Democratic Donkey" className="p-2" />
+          <NavbarBrand>
+            <Link to="/">
+              <img src={elephant} alt="Republican Elephant" className="p-2" />
+              <span className="Header-font-style">CO Legislative Tracker</span>
+              <img src={donkey} alt="Democratic Donkey" className="p-2" />
+            </Link>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -34,12 +37,16 @@ export default class Example extends React.Component {
                   <span className="Header-dropdown-font">Legislators</span>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    All Legislators
-                  </DropdownItem>
-                  <DropdownItem>
-                    By Party
-                  </DropdownItem>
+                  <Link to="#">
+                    <DropdownItem>
+                      All Legislators
+                    </DropdownItem>
+                  </Link>
+                  <Link to="#">
+                    <DropdownItem>
+                      By Party
+                    </DropdownItem>
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar className="px-3">
@@ -47,12 +54,16 @@ export default class Example extends React.Component {
                 <span className="Header-dropdown-font">Bills</span>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    All Bills
-                  </DropdownItem>
-                  <DropdownItem>
-                    By Subject
-                  </DropdownItem>
+                  <Link to="/bills">
+                    <DropdownItem>
+                      All Bills
+                    </DropdownItem>
+                  </Link>
+                  <Link to="#">
+                    <DropdownItem>
+                      By Subject
+                    </DropdownItem>
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
@@ -62,3 +73,5 @@ export default class Example extends React.Component {
     );
   }
 }
+
+export default Header;

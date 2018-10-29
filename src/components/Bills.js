@@ -1,13 +1,61 @@
 import React, {Component} from "react";
-import {Container} from "reactstrap";
+import {Container, Table} from "reactstrap";
 
 class Bills extends Component {
 
+  state = {
+    bills: []
+  }
+
+  componentDidMount() {
+    this.getBillPageInfo();
+  }
+
+  getBillPageInfo = () => {
+    return fetch("http://localhost:5555/bills")
+      .then(result => result.json())
+      .then(result => {
+        this.setState(
+          {
+            bills: result
+          }
+        )
+        console.log("result: ", result)
+      })
+  }
 
   render() {
+
+    const {bills} = this.state;
+    const createTableRow = bills.map((bill) => {
+      return (
+        <tr key={bill.id}>
+          <td>{bill.bill}</td>
+          <td>{bill.title}</td>
+          <td>{bill.subject}</td>
+          <td>{bill.last_action}</td>
+        </tr>
+      )
+    })
+
     return (
-      <Container>
-        
+      <Container className="bg-white my-4 text-center p-3">
+        <h3 className="m-3">
+          2018 Introduced Bills
+        </h3>
+        <Table bordered responsive>
+        <thead className="thead-light">
+          <tr>
+            <th>Bill #</th>
+            <th>Title</th>
+            <th>Subject(s)</th>
+            <th>Last Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {createTableRow}
+        </tbody>
+      </Table>
       </Container>
     )
   }
