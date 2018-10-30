@@ -21,7 +21,6 @@ class Bills extends Component {
             bills: result
           }
         )
-        console.log("result: ", result)
       })
   }
 

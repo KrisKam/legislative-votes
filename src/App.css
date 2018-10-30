@@ -19,10 +19,13 @@
   color: #014454;
 }
 
-.Bills-h3 {
+.Bills-h3, .Legislators-h3 {
   color: #012f54
 }
 
+.Bill-section {
+  color: #012f54
+}
 
 
 /* darker blue:  #012f54  */

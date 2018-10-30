@@ -21,7 +21,6 @@ class Legislators extends Component {
             legislators: result
           }
         )
-        console.log("result: ", result)
       })
   }
 
@@ -41,7 +40,7 @@ class Legislators extends Component {
 
     return (
       <Container className="bg-white my-4 text-center p-3">
-        <h3 className="m-3">
+        <h3 className="m-3 Legislators-h3">
           Legislators
         </h3>
         <Table bordered responsive>
