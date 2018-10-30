@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import elephant from "../../src/images/elephant.png";
 import donkey from "../../src/images/donkey.png";
-import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {Navbar, NavItem, NavbarToggler, Collapse, NavbarBrand, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import {Link} from "react-router-dom";
+
 
 class Header extends Component {
   constructor(props) {
@@ -22,22 +23,23 @@ class Header extends Component {
     return (
       <div>
         <Navbar className="border-bottom border-secondary Header-font-weight" color="light" light expand="md">
-          <NavbarBrand>
-            <Link to="/">
-              <img src={elephant} alt="Republican Elephant" className="p-2" />
-              <span className="Header-font-style">CO Legislative Tracker</span>
-              <img src={donkey} alt="Democratic Donkey" className="p-2" />
-            </Link>
+          <NavbarBrand>    
+            <img src={elephant} alt="Republican Elephant" className="p-2" />
+            <span className="Header-font-style">CO Legislative Tracker</span>
+            <img src={donkey} alt="Democratic Donkey" className="p-2" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+              <NavItem className="mt-2">
+                <Link to="/" className="Header-nav-font px-4">Home</Link>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  <span className="Header-dropdown-font">Legislators</span>
+                  <span className="Header-nav-font">Legislators</span>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link to="#">
+                  <Link to="/legislators">
                     <DropdownItem>
                       All Legislators
                     </DropdownItem>
@@ -51,7 +53,7 @@ class Header extends Component {
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar className="px-3">
                 <DropdownToggle nav caret>
-                <span className="Header-dropdown-font">Bills</span>
+                <span className="Header-nav-font">Bills</span>
                 </DropdownToggle>
                 <DropdownMenu right>
                   <Link to="/bills">
@@ -75,3 +77,5 @@ class Header extends Component {
 }
 
 export default Header;
+
+

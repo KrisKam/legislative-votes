@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Container, Table} from "reactstrap";
+import {Link} from "react-router-dom";
 
 class Bills extends Component {
 
@@ -30,7 +31,7 @@ class Bills extends Component {
     const createTableRow = bills.map((bill) => {
       return (
         <tr key={bill.id}>
-          <td>{bill.bill}</td>
+          <td><Link to={`/bills/${bill.id}`}>{bill.bill}</Link></td>
           <td>{bill.title}</td>
           <td>{bill.subject}</td>
           <td>{bill.last_action}</td>
@@ -40,7 +41,7 @@ class Bills extends Component {
 
     return (
       <Container className="bg-white my-4 text-center p-3">
-        <h3 className="m-3">
+        <h3 className="m-3 Bills-h3">
           2018 Introduced Bills
         </h3>
         <Table bordered responsive>
