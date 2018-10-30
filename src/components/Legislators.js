@@ -16,11 +16,9 @@ class Legislators extends Component {
     return fetch("http://localhost:5555/legislators")
       .then(result => result.json())
       .then(result => {
-        this.setState(
-          {
-            legislators: result
-          }
-        )
+        this.setState({
+          legislators: result
+        })
       })
   }
 

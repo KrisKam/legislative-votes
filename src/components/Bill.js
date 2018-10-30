@@ -1,15 +1,21 @@
 import React, {Component} from "react";
 import {Container, Row, Col, Table} from "reactstrap";
+import Chart from "./Chart";
 
 
 class Bill extends Component {
 
   state = {
-    bill: null
+    bill: null,
+    chartData: {}
   }
 
   componentDidMount() {
-    // console.log(this.props)
+    this.getBillData();
+    this.getChartData();
+  }
+
+  getBillData() {
     let id = this.props.match.params.post_id;
     return fetch(`http://localhost:5555/bills/${id}`)
       .then(result => result.json())
@@ -23,6 +29,19 @@ class Bill extends Component {
       })
   }
 
+  getChartData() {
+    //fetch call here, temp data for now
+    this.setState({
+      chartData: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [{
+          label: "# of Votes",
+          data: [53, 10, 2],
+          backgroundColor: ["yellow", "orange", "green"]
+        }],
+      }
+    })
+  }
 
   render() {
 
@@ -56,7 +75,7 @@ class Bill extends Component {
         <Col sm="1"></Col>
         </Row>
         <h4>Final Vote</h4>
- 
+        <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="House"/>
       </section>
     ) : (
       <div className="center">Post Loading</div>

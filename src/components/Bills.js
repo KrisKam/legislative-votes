@@ -16,11 +16,9 @@ class Bills extends Component {
     return fetch("http://localhost:5555/bills")
       .then(result => result.json())
       .then(result => {
-        this.setState(
-          {
-            bills: result
-          }
-        )
+        this.setState({
+          bills: result
+        })
       })
   }
 
