@@ -31,7 +31,9 @@ class Bill extends Component {
       <section className="Bill-section">
         <h2 className="mt-3">{bill.bill}</h2>
         <h3>{bill.title}</h3> 
-
+        <Row>
+        <Col sm="1"></Col>
+        <Col sm="10">
         <Table className="table table-bordered text-left my-4 responsive">
           <tbody>
             <tr>
@@ -50,6 +52,9 @@ class Bill extends Component {
             </tr>
           </tbody>
         </Table>
+        </Col>
+        <Col sm="1"></Col>
+        </Row>
         <h4>Final Vote</h4>
  
       </section>
