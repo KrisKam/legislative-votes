@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Bar, Pie} from "react-chartjs-2";
+import {Bar} from "react-chartjs-2";
 
 
 class Chart extends Component {
@@ -28,7 +28,10 @@ class Chart extends Component {
             },
             scales: {
               xAxes: [{ stacked: true }],
-              yAxes: [{ stacked: true }]
+              yAxes: [{ 
+                stacked: true,
+                ticks: {beginAtZero:true} 
+              }]
             }
           }}
         />

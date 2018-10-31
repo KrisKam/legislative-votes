@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Container, Row, Col, Table} from "reactstrap";
+import {Container, Row, Col, Table, Card, CardBody} from "reactstrap";
+import {Link} from "react-router-dom";
 import Chart from "./Chart";
 
 
@@ -30,29 +31,31 @@ class Bill extends Component {
   }
 
   getChartData() {
-    //fetch call here, temp data for now
-    this.setState({
-      chartData: {
-        labels: ["Yes", "No", "Excused"],
-        datasets: [
-          {
-            label: "Democrats",
-            data: [10, 10, 2],
-            backgroundColor: ["#1394b3", "#1394b3", "#1394b3"]
-          },
-          {
-            label: "Republicans",
-            data: [10, 10, 2],
-            backgroundColor: ["#d32729", "#d32729", "#d32729"]
-          },
-          {
-            label: "Unaffiliated",
-            data: [5, 5, 1],
-            backgroundColor: ["#2ad327", "#2ad327", "#2ad327"]
-          }
-        ],
-      }
-    })
+
+
+    // // temp data for now
+    // this.setState({
+    //   chartData: {
+    //     labels: ["Yes", "No", "Excused"],
+    //     datasets: [
+    //       {
+    //         label: "Democrats",
+    //         data: [10, 10, 2],
+    //         backgroundColor: "#1394b3"
+    //       },
+    //       {
+    //         label: "Republicans",
+    //         data: [10, 10, 2],
+    //         backgroundColor: "#d32729"
+    //       },
+    //       {
+    //         label: "Unaffiliated",
+    //         data: [0, 1, 0],
+    //         backgroundColor: "#2ad327"
+    //       }
+    //     ],
+    //   }
+    // })
   }
 
   render() {
@@ -60,7 +63,9 @@ class Bill extends Component {
     const {bill} = this.state; 
     const billPage = this.state.bill ? (
       <section className="Bill-section">
-        <h2 className="mt-3">{bill.bill}</h2>
+        <Link to={bill.bill_url}>
+          <h2 className="mt-3 Bill-h2">{bill.bill}</h2>
+        </Link>
         <h3>{bill.title}</h3> 
         <Row>
         <Col sm="1"></Col>
@@ -86,8 +91,23 @@ class Bill extends Component {
         </Col>
         <Col sm="1"></Col>
         </Row>
-        <h4>Final Votes</h4>
-        <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="House"/>
+        <h4 className="mb-4">Final Votes</h4>
+        <Row className="justify-content-md-center">
+          <Col md="5">
+            <Card>
+              <CardBody>
+               <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="Senate"/>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col md="5">
+            <Card>
+              <CardBody>
+               <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="House"/>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </section>
     ) : (
       <div className="center">Post Loading</div>
