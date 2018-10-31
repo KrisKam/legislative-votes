@@ -34,11 +34,23 @@ class Bill extends Component {
     this.setState({
       chartData: {
         labels: ["Yes", "No", "Excused"],
-        datasets: [{
-          label: "# of Votes",
-          data: [53, 10, 2],
-          backgroundColor: ["yellow", "orange", "green"]
-        }],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [10, 10, 2],
+            backgroundColor: ["#1394b3", "#1394b3", "#1394b3"]
+          },
+          {
+            label: "Republicans",
+            data: [10, 10, 2],
+            backgroundColor: ["#d32729", "#d32729", "#d32729"]
+          },
+          {
+            label: "Unaffiliated",
+            data: [5, 5, 1],
+            backgroundColor: ["#2ad327", "#2ad327", "#2ad327"]
+          }
+        ],
       }
     })
   }
@@ -63,18 +75,18 @@ class Bill extends Component {
             </tr>
             <tr>
               <th>Summary:</th>
-              <td colspan="3">{bill.description}</td>
+              <td colSpan="3">{bill.description}</td>
             </tr>
             <tr>
               <th>Last Action:</th>
-              <td colspan="3">{bill.last_action}</td>
+              <td colSpan="3">{bill.last_action}</td>
             </tr>
           </tbody>
         </Table>
         </Col>
         <Col sm="1"></Col>
         </Row>
-        <h4>Final Vote</h4>
+        <h4>Final Votes</h4>
         <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="House"/>
       </section>
     ) : (
