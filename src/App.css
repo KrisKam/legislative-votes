@@ -27,6 +27,21 @@
   color: #012f54
 }
 
+.Legislator-font {
+  color: #012f54
+}
+
+.Legislator-h2-font {
+  opacity: .8
+}
+
+.Legislator-col-font {
+  font-weight: bold
+}
+
+.Legislator-img {
+  height: 180px;
+}
 
 /* darker blue:  #012f54   #035 */
 

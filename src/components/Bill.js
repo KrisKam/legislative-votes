@@ -61,7 +61,9 @@ class Bill extends Component {
   render() {
 
     const {bill} = this.state; 
-    const billPage = this.state.bill ? (
+    const {chartData} = this.state;
+
+    const createBillPage = this.state.bill ? (
       <section className="Bill-section">
         <Link to={bill.bill_url}>
           <h2 className="mt-3 Bill-h2">{bill.bill}</h2>
@@ -91,8 +93,7 @@ class Bill extends Component {
         </Col>
         <Col sm="1"></Col>
         </Row>
-        <h4 className="mb-4">Final Votes</h4>
-        <Row className="justify-content-md-center">
+        {/* <Row className="justify-content-md-center">
           <Col md="5">
             <Card>
               <CardBody>
@@ -107,16 +108,40 @@ class Bill extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </section>
     ) : (
       <div className="center">Post Loading</div>
     )
 
+    const createCharts = this.state.chartData ? (
+      <section>
+        <h4 className="mb-4">Final Votes</h4>
+        <Row className="justify-content-md-center">
+        <Col md="5">
+          <Card>
+            <CardBody>
+            <Chart chartData={chartData} billNumber="SB18-1002" chamber="Senate"/>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md="5">
+          <Card>
+            <CardBody>
+            <Chart chartData={chartData} billNumber="SB18-1002" chamber="House"/>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </section>
+    ) : (
+      <div className="center">Chart Data Loading</div>
+    )
 
     return (
       <Container className="bg-white my-4 text-center p-4">
-        {billPage}
+        {createBillPage}
+        {createCharts}
       </Container>
     )
   }
