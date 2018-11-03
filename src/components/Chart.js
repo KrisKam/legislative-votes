@@ -3,18 +3,14 @@ import {Bar} from "react-chartjs-2";
 
 
 class Chart extends Component {
-
-    state = {
-      chartData: this.props.chartData
-    }
-
   
   render() {
-    console.log(this.props.billNumber)
+    console.log("chart props", this.props.chartData)
+
     return (
       <div className="chart">
         <Bar
-          data={this.state.chartData}
+          data={this.props.chartData}
           options={{
             title: {
               display: true,

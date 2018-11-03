@@ -8,7 +8,9 @@ class Bill extends Component {
 
   state = {
     bill: null,
-    chartData: {}
+    chartDataSenate: {},
+    chartDataHouse: {},
+    billNumber: null,
   }
 
   componentDidMount() {
@@ -17,8 +19,9 @@ class Bill extends Component {
   }
 
   getBillData() {
-    let id = this.props.match.params.post_id;
-    return fetch(`http://localhost:5555/bills/${id}`)
+    let billId = this.props.match.params.bill;
+    // return fetch(`http://localhost:5555/bills/${billId}`)
+    return fetch(`https://legislative-tracker.herokuapp.com/bills/${billId}`)
       .then(result => result.json())
       .then(result => {
         this.setState(
@@ -26,42 +29,82 @@ class Bill extends Component {
             bill: result[0]
           }
         )
-        console.log("bill: ", result[0])
+        // console.log("bill: ", result[0])
       })
   }
 
   getChartData() {
+    let billId = this.props.match.params.bill;
+    return fetch(`https://legislative-tracker.herokuapp.com/votes/${billId}`)
+      .then(result => result.json())
+      .then(result => this.setChartData(result))
+  }
 
-
-    // // temp data for now
-    // this.setState({
-    //   chartData: {
-    //     labels: ["Yes", "No", "Excused"],
-    //     datasets: [
-    //       {
-    //         label: "Democrats",
-    //         data: [10, 10, 2],
-    //         backgroundColor: "#1394b3"
-    //       },
-    //       {
-    //         label: "Republicans",
-    //         data: [10, 10, 2],
-    //         backgroundColor: "#d32729"
-    //       },
-    //       {
-    //         label: "Unaffiliated",
-    //         data: [0, 1, 0],
-    //         backgroundColor: "#2ad327"
-    //       }
-    //     ],
-    //   }
-    // })
+  setChartData(result) {
+    let billNumber = result[0].bill;
+    let votes = {};
+    result.forEach(voteCount => {
+      let place = "";
+      place = place + voteCount.chamber; //place = Senate
+      place = place + voteCount.party; //place = SenateRepublican
+      place = place + voteCount.vote; //place = SenateRepublicanY
+      votes[place] = voteCount.count; //SenateRepublicanY: 2
+    })
+    this.setChartDataState(votes, billNumber);
+  }
+  
+  setChartDataState(votes, billNumber) {
+    this.setState({
+      billNumber: billNumber,
+      chartDataSenate: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [votes.SenateDemocratY, votes.SenateDemocratN, votes.SenateDemocratE],
+            backgroundColor: "#1394b3"
+          },
+          {
+            label: "Republicans",
+            data: [votes.SenateRepublicanY, votes.SenateRepublicanN, votes.SenateRepublicanE],
+            backgroundColor: "#d32729"
+          },
+          {
+            label: "Unaffiliated",
+            data: [votes.SenateUnaffiliatedY, votes.SenateUnaffiliatedN, votes.SenateUnaffiliatedE],
+            backgroundColor: "#2ad327"
+          }
+        ],
+      },
+      chartDataHouse: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [votes.HouseDemocratY, votes.HouseDemocratN, votes.HouseDemocratE],
+            backgroundColor: "#1394b3"
+          },
+          {
+            label: "Republicans",
+            data: [votes.HouseRepublicanY, votes.HouseRepublicanN, votes.HouseRepublicanE],
+            backgroundColor: "#d32729"
+          },
+          {
+            label: "Unaffiliated",
+            data: [votes.HouseUnaffiliatedY, votes.HouseUnaffiliatedN, votes.HouseUnaffiliatedE],
+            backgroundColor: "#2ad327"
+          }
+        ],
+      }
+    })
   }
 
   render() {
 
     const {bill} = this.state; 
-    const {chartData} = this.state;
+    const {chartDataSenate} = this.state;
+    const {chartDataHouse} = this.state;
+    const {billNumber} = this.state;
 
     const createBillPage = this.state.bill ? (
       <section className="Bill-section">
@@ -93,42 +136,26 @@ class Bill extends Component {
         </Col>
         <Col sm="1"></Col>
         </Row>
-        {/* <Row className="justify-content-md-center">
-          <Col md="5">
-            <Card>
-              <CardBody>
-               <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="Senate"/>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col md="5">
-            <Card>
-              <CardBody>
-               <Chart chartData={this.state.chartData} billNumber="SB18-1002" chamber="House"/>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row> */}
       </section>
     ) : (
       <div className="center">Post Loading</div>
     )
-
-    const createCharts = this.state.chartData ? (
+    
+    const createCharts = this.state.chartDataSenate && this.state.chartDataHouse ? (
       <section>
         <h4 className="mb-4">Final Votes</h4>
         <Row className="justify-content-md-center">
         <Col md="5">
           <Card>
             <CardBody>
-            <Chart chartData={chartData} billNumber="SB18-1002" chamber="Senate"/>
+            <Chart chartData={chartDataSenate} billNumber={billNumber} chamber="Senate"/>
             </CardBody>
           </Card>
         </Col>
         <Col md="5">
           <Card>
             <CardBody>
-            <Chart chartData={chartData} billNumber="SB18-1002" chamber="House"/>
+            <Chart chartData={chartDataHouse} billNumber={billNumber} chamber="House"/>
             </CardBody>
           </Card>
         </Col>

@@ -13,7 +13,7 @@ class Legislators extends Component {
   }
 
   getLegislators = () => {
-    return fetch("http://localhost:5555/legislators")
+    return fetch("https://legislative-tracker.herokuapp.com/legislators")
       .then(result => result.json())
       .then(result => {
         this.setState({
