@@ -8,7 +8,8 @@ class Bill extends Component {
 
   state = {
     bill: null,
-    chartData: {},
+    chartDataSenate: {},
+    chartDataHouse: {},
     billNumber: null,
   }
 
@@ -40,93 +41,70 @@ class Bill extends Component {
   }
 
   setChartData(result) {
-    console.log("billpage setCD: ", result)
     let billNumber = result[0].bill;
-    let demY = 0;
-    let demN = 0;
-    let demE = 0;
-    let repY = 0;
-    let repN = 0;
-    let repE = 0;
-    let unY = 0;
-    let unN = 0;
-    let unE = 0;
+    let votes = {};
     result.forEach(voteCount => {
-      console.log("billNumber ", billNumber);
-      if (voteCount.chamber === "Senate" && voteCount.party === "Democrat" && voteCount.vote === "Y") {
-        demY = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Democrat" && voteCount.vote === "N") {
-        demN = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Democrat" && voteCount.vote === "E") {
-        demE = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Republican" && voteCount.vote === "Y") {
-        repY = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Republican" && voteCount.vote === "N") {
-        repN = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Republican" && voteCount.vote === "E") {
-        repE = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Unaffiliated" && voteCount.vote === "Y") {
-        unY = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Unaffiliated" && voteCount.vote === "N") {
-        unN = voteCount.count;
-      } else if (voteCount.chamber === "Senate" && voteCount.party === "Unaffiliated" && voteCount.vote === "E") {
-        unE = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Democrat" && voteCount.vote === "Y") {
-        demY = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Democrat" && voteCount.vote === "N") {
-        demN = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Democrat" && voteCount.vote === "E") {
-        demE = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Republican" && voteCount.vote === "Y") {
-        repY = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Republican" && voteCount.vote === "N") {
-        repN = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Republican" && voteCount.vote === "E") {
-        repE = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Unaffiliated" && voteCount.vote === "Y") {
-        unY = voteCount.count;
-      } else if (voteCount.chamber === "House" && voteCount.party === "Unaffiliated" && voteCount.vote === "N") {
-        unN = voteCount.count;
-      } else {
-        unE = voteCount.count;
-      }
+      let place = "";
+      place = place + voteCount.chamber; //place = Senate
+      place = place + voteCount.party; //place = SenateRepublican
+      place = place + voteCount.vote; //place = SenateRepublicanY
+      votes[place] = voteCount.count; //SenateRepublicanY: 2
     })
-    this.setChartDataState(demY, demN, demE, repY, repN, repE, unY, unN, unE, billNumber)
+    this.setChartDataState(votes, billNumber);
   }
-
-  setChartDataState(demY, demN, demE, repY, repN, repE, unY, unN, unE, billNumber) {
+  
+  setChartDataState(votes, billNumber) {
     this.setState({
       billNumber: billNumber,
-      chartData: {
+      chartDataSenate: {
         labels: ["Yes", "No", "Excused"],
         datasets: [
           {
             label: "Democrats",
-            data: [demY, demN, demE],
+            data: [votes.SenateDemocratY, votes.SenateDemocratN, votes.SenateDemocratE],
             backgroundColor: "#1394b3"
           },
           {
             label: "Republicans",
-            data: [repY, repN, repE],
+            data: [votes.SenateRepublicanY, votes.SenateRepublicanN, votes.SenateRepublicanE],
             backgroundColor: "#d32729"
           },
           {
             label: "Unaffiliated",
-            data: [unY, unN, unE],
+            data: [votes.SenateUnaffiliatedY, votes.SenateUnaffiliatedN, votes.SenateUnaffiliatedE],
+            backgroundColor: "#2ad327"
+          }
+        ],
+      },
+      chartDataHouse: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [votes.HouseDemocratY, votes.HouseDemocratN, votes.HouseDemocratE],
+            backgroundColor: "#1394b3"
+          },
+          {
+            label: "Republicans",
+            data: [votes.HouseRepublicanY, votes.HouseRepublicanN, votes.HouseRepublicanE],
+            backgroundColor: "#d32729"
+          },
+          {
+            label: "Unaffiliated",
+            data: [votes.HouseUnaffiliatedY, votes.HouseUnaffiliatedN, votes.HouseUnaffiliatedE],
             backgroundColor: "#2ad327"
           }
         ],
       }
     })
-    console.log("chart! ", this.state.chartData)
   }
 
   render() {
 
     const {bill} = this.state; 
-    const {chartData} = this.state;
+    const {chartDataSenate} = this.state;
+    const {chartDataHouse} = this.state;
     const {billNumber} = this.state;
-    console.log("chartData render :", chartData)
 
     const createBillPage = this.state.bill ? (
       <section className="Bill-section">
@@ -163,21 +141,21 @@ class Bill extends Component {
       <div className="center">Post Loading</div>
     )
     
-    const createCharts = this.state.chartData ? (
+    const createCharts = this.state.chartDataSenate && this.state.chartDataHouse ? (
       <section>
         <h4 className="mb-4">Final Votes</h4>
         <Row className="justify-content-md-center">
         <Col md="5">
           <Card>
             <CardBody>
-            <Chart chartData={chartData} billNumber={billNumber} chamber="Senate"/>
+            <Chart chartData={chartDataSenate} billNumber={billNumber} chamber="Senate"/>
             </CardBody>
           </Card>
         </Col>
         <Col md="5">
           <Card>
             <CardBody>
-            <Chart chartData={chartData} billNumber={billNumber} chamber="House"/>
+            <Chart chartData={chartDataHouse} billNumber={billNumber} chamber="House"/>
             </CardBody>
           </Card>
         </Col>
