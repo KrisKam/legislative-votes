@@ -5,7 +5,6 @@ import {Bar} from "react-chartjs-2";
 class Chart extends Component {
   
   render() {
-    console.log("chart props", this.props.chartData)
 
     return (
       <div className="chart">
