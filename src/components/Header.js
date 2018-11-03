@@ -44,7 +44,7 @@ class Header extends Component {
                       All Legislators
                     </DropdownItem>
                   </Link>
-                  <Link to="#">
+                  <Link to="/legislators/party">
                     <DropdownItem>
                       By Party
                     </DropdownItem>
