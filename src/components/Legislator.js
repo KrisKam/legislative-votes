@@ -18,7 +18,7 @@ class Legislator extends Component {
 
   getLegislatorData() {
     let id = this.props.match.params.post_id;
-    return fetch(`http://localhost:5555/legislators/${id}`)
+    return fetch(`https://legislative-tracker.herokuapp.com/legislators/${id}`)
       .then(result => result.json())
       .then(result => {
         this.setState(
@@ -92,7 +92,7 @@ class Legislator extends Component {
 
     const createCharts = this.state.chartData ? (
       <section>
-        <h4 className="mb-4">Votes</h4>
+        <h4 className="mb-4">View Session Votes</h4>
         <Row className="justify-content-md-center">
         <Col md="5">
           <Card>
@@ -115,7 +115,7 @@ class Legislator extends Component {
     )
 
     return (
-      <Container className="bg-white my-4 text-center p-4 Legislator-font">
+      <Container className="bg-white mt-4 mb-2 text-center p-4 Legislator-font">
         {createLegislatorCard}
         {createCharts}
       </Container>

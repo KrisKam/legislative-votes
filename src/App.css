@@ -43,6 +43,11 @@
   height: 180px;
 }
 
+.Footer-style {
+  background: #012f54;
+  color: #FFFFFF
+}
+
 /* darker blue:  #012f54   #035 */
 
 /* dark blue:  (analogous green #015412  / complementary maroon #541a01)

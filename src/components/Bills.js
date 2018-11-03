@@ -13,7 +13,7 @@ class Bills extends Component {
   }
 
   getBillPageInfo = () => {
-    return fetch("http://localhost:5555/bills")
+    return fetch("https://legislative-tracker.herokuapp.com/bills")
       .then(result => result.json())
       .then(result => {
         this.setState({
@@ -28,7 +28,7 @@ class Bills extends Component {
     const createTableRow = bills.map((bill) => {
       return (
         <tr key={bill.id}>
-          <td><Link to={`/bills/${bill.id}`}>{bill.bill}</Link></td>
+          <td><Link to={`/bills/${bill.bill}`}>{bill.bill}</Link></td>
           <td>{bill.title}</td>
           <td>{bill.subject}</td>
           <td>{bill.last_action}</td>
