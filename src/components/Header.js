@@ -61,7 +61,7 @@ class Header extends Component {
                       All Bills
                     </DropdownItem>
                   </Link>
-                  <Link to="#">
+                  <Link to="/bills/subjects">
                     <DropdownItem>
                       By Subject
                     </DropdownItem>

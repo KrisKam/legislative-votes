@@ -41,6 +41,10 @@ class Bill extends Component {
   }
 
   setChartData(result) {
+    if (result[0] === undefined) { 
+      console.log("false")
+      return
+    }
     let billNumber = result[0].bill;
     let votes = {};
     result.forEach(voteCount => {

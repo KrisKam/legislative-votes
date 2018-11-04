@@ -19,6 +19,11 @@
   color: #014454;
 }
 
+.Home-button {
+  background-color: #d28500 !important;
+  border: #d28500 !important;
+}
+
 .Bills-h3, .Legislators-h3, .Bill-h2 {
   color: #012f54
 }

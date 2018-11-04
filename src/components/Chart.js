@@ -5,8 +5,10 @@ import {Bar} from "react-chartjs-2";
 class Chart extends Component {
   
   render() {
-    console.log("chart props", this.props.chartData)
-
+    console.log("chart props", this.props.chartData.datasets)
+    if (this.props.chartData.datasets === undefined) {
+      return <h4>No final vote for this bill--see last action.</h4>
+    } else {
     return (
       <div className="chart">
         <Bar
@@ -15,7 +17,7 @@ class Chart extends Component {
             title: {
               display: true,
               text: `${this.props.chamber} Vote: ${this.props.billNumber} `,
-              fontSize: 25,
+              fontSize: 20,
               fontColor: "#012f54" 
             },
             legend: {
@@ -34,6 +36,7 @@ class Chart extends Component {
       </div>
     )
   }
+}
 }
 
 export default Chart;

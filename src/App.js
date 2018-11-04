@@ -5,6 +5,7 @@ import Header from "../src/components/Header";
 import Home from "../src/components/Home";
 import Bills from "../src/components/Bills";
 import Bill from "../src/components/Bill";
+import Subjects from "../src/components/Subjects";
 import Legislators from "../src/components/Legislators";
 import Legislator from "../src/components/Legislator";
 import Party from "../src/components/Party";
@@ -20,6 +21,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/bills" component={Bills} /> 
+            <Route exact path="/bills/subjects" component={Subjects} />
             <Route exact path="/legislators" component={Legislators} />
             <Route exact path="/legislators/party" component={Party} />
             <Route path="/bills/:bill" component={Bill} />

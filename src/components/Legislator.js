@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Container, Row, Col, Card, CardBody} from "reactstrap";
 // import {Link} from "react-router-dom";
 import Chart from "./Chart";
+import Dropdown from "./Dropdown";
 
 
 class Legislator extends Component {
@@ -31,30 +32,6 @@ class Legislator extends Component {
   }
   getChartData() {
 
-
-    // // temp data for now
-    // this.setState({
-    //   chartData: {
-    //     labels: ["Yes", "No", "Excused"],
-    //     datasets: [
-    //       {
-    //         label: "Democrats",
-    //         data: [10, 10, 2],
-    //         backgroundColor: "#1394b3"
-    //       },
-    //       {
-    //         label: "Republicans",
-    //         data: [10, 10, 2],
-    //         backgroundColor: "#d32729"
-    //       },
-    //       {
-    //         label: "Unaffiliated",
-    //         data: [0, 1, 0],
-    //         backgroundColor: "#2ad327"
-    //       }
-    //     ],
-    //   }
-    // })
   }
 
   render() {
@@ -118,6 +95,7 @@ class Legislator extends Component {
       <Container className="bg-white mt-4 mb-2 text-center p-4 Legislator-font">
         {createLegislatorCard}
         {createCharts}
+        <Dropdown />
       </Container>
     )
   }
