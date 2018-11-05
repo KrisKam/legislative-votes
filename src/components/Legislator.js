@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {Container, Row, Col, Card, CardBody} from "reactstrap";
-import {Link} from "react-router-dom";
-// import CreateCharts from "./CreateCharts";
+import {Container, Row, Col} from "reactstrap";
+import CreateCharts from "./CreateCharts";
 import Dropdown from "./Dropdown";
 
 
@@ -10,15 +9,15 @@ class Legislator extends Component {
   state = {
     legislator: null,
     bills: [],
-    chartData: {},
     subject: "",
-    billSelect: ""
+    billNum: "",
+    bilId: "",
+    data: {}
   }
 
   componentDidMount() {
     this.getLegislatorData()
     this.getBills()
-    this.getChartData();
   }
 
   getLegislatorData() {
@@ -29,7 +28,6 @@ class Legislator extends Component {
         this.setState({
             legislator: result[0]
           })
-        // console.log("legislator: ", result[0])
       })
   }
 
@@ -55,14 +53,13 @@ class Legislator extends Component {
     } else {
       return this.state.bills.filter(bill => {
         return bill.subject.includes(this.state.subject)
-      }).map(bill => {
-         
+      }).map(bill => { 
           if (!bill.last_action.includes("Governor")) {
             return <Row key={bill.bill}>
             {bill.bill}:  {bill.title} (Lost or Postponed Indefinitely)
           </Row>
           } else {
-            return <Row onClick={()=>this.handleClick(bill.bill)} key={bill.bill} name={bill.bill}>
+            return <Row onClick={()=>this.handleClick(bill)} key={bill.bill} name={bill.bill}>
             {bill.bill}:  {bill.title} (View Vote)
           </Row>
           }
@@ -71,19 +68,93 @@ class Legislator extends Component {
   }
 
   handleClick = (bill) => {
-    this.setState ({
-      billSelect: bill
-    })
-    console.log("dave is here", this.state.billSelect)
+      let billNum = bill.bill;
+      this.setState ({
+        billNum: bill.bill,
+        billId: bill.id
+      })
+      console.log(bill.bill)
+      console.log("billNum: ", billNum)
+      return fetch(`https://legislative-tracker.herokuapp.com/votes/${billNum}`)
+        .then(result => result.json())
+        .then(result => {
+          let chartData = this.setChartData(result)
+          this.setState({
+            data: chartData
+          })
+        }
+       )  
   }
 
-  getChartData() {
+  setChartData(result) {
+    let billNumber = result[0].bill;
+    let votes = {};
+    result.forEach(voteCount => {
+      let place = "";
+      place = place + voteCount.chamber; //place = Senate
+      place = place + voteCount.party; //place = SenateRepublican
+      place = place + voteCount.vote; //place = SenateRepublicanY
+      votes[place] = voteCount.count; //SenateRepublicanY: 2
+    })
+    return this.setChartDataState(votes, billNumber);
+  }
 
+  setChartDataState(votes, billNumber) {
+    return ({
+      billNumber: billNumber,
+      chartDataSenate: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [votes.SenateDemocratY, votes.SenateDemocratN, votes.SenateDemocratE],
+            backgroundColor: "#1394b3"
+          },
+          {
+            label: "Republicans",
+            data: [votes.SenateRepublicanY, votes.SenateRepublicanN, votes.SenateRepublicanE],
+            backgroundColor: "#d32729"
+          },
+          {
+            label: "Unaffiliated",
+            data: [votes.SenateUnaffiliatedY, votes.SenateUnaffiliatedN, votes.SenateUnaffiliatedE],
+            backgroundColor: "#2ad327"
+          }
+        ],
+      },
+      chartDataHouse: {
+        labels: ["Yes", "No", "Excused"],
+        datasets: [
+          {
+            label: "Democrats",
+            data: [votes.HouseDemocratY, votes.HouseDemocratN, votes.HouseDemocratE],
+            backgroundColor: "#1394b3"
+          },
+          {
+            label: "Republicans",
+            data: [votes.HouseRepublicanY, votes.HouseRepublicanN, votes.HouseRepublicanE],
+            backgroundColor: "#d32729"
+          },
+          {
+            label: "Unaffiliated",
+            data: [votes.HouseUnaffiliatedY, votes.HouseUnaffiliatedN, votes.HouseUnaffiliatedE],
+            backgroundColor: "#2ad327"
+          }
+        ],
+      }
+    })
+  }
+
+  renderCreateCharts() {
+    return (this.state.billNum !== "") ? (
+    <CreateCharts data={this.state.data} billNum={this.state.billNum}/>
+    ) : (
+      <div></div>
+    )
   }
 
   render() {
     const {legislator} = this.state;
-    const {chartData} = this.state;
    
     const createLegislatorCard = this.state.legislator ? (
       <section>
@@ -121,7 +192,7 @@ class Legislator extends Component {
         <section>
           {this.listBills()}
         </section>
-        {/* <CreateCharts /> */}
+        {this.renderCreateCharts()}
       </Container>
     )
   }
