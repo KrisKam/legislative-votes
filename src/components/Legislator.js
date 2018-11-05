@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Container, Row, Col, Card, CardBody} from "reactstrap";
-// import {Link} from "react-router-dom";
-import Chart from "./Chart";
+import {Link} from "react-router-dom";
+// import CreateCharts from "./CreateCharts";
 import Dropdown from "./Dropdown";
 
 
@@ -9,11 +9,15 @@ class Legislator extends Component {
 
   state = {
     legislator: null,
-    chartData: {}
+    bills: [],
+    chartData: {},
+    subject: "",
+    billSelect: ""
   }
 
   componentDidMount() {
     this.getLegislatorData()
+    this.getBills()
     this.getChartData();
   }
 
@@ -22,14 +26,57 @@ class Legislator extends Component {
     return fetch(`https://legislative-tracker.herokuapp.com/legislators/${id}`)
       .then(result => result.json())
       .then(result => {
-        this.setState(
-          {
+        this.setState({
             legislator: result[0]
-          }
-        )
-        console.log("legislator: ", result[0])
+          })
+        // console.log("legislator: ", result[0])
       })
   }
+
+  getBills() {
+    return fetch("https://legislative-tracker.herokuapp.com/bills")
+    .then(result => result.json())
+    .then(result => {
+      this.setState({
+        bills: result
+      })
+    })
+  }
+
+  selectSubject = (subjects) => {
+    this.setState({
+      subject: subjects
+    })
+  }
+
+  listBills() {
+    if (this.state.subject === "") {
+      return <div>Choose a subject then select a bill to view.</div>
+    } else {
+      return this.state.bills.filter(bill => {
+        return bill.subject.includes(this.state.subject)
+      }).map(bill => {
+         
+          if (!bill.last_action.includes("Governor")) {
+            return <Row key={bill.bill}>
+            {bill.bill}:  {bill.title} (Lost or Postponed Indefinitely)
+          </Row>
+          } else {
+            return <Row onClick={()=>this.handleClick(bill.bill)} key={bill.bill} name={bill.bill}>
+            {bill.bill}:  {bill.title} (View Vote)
+          </Row>
+          }
+      })
+    }
+  }
+
+  handleClick = (bill) => {
+    this.setState ({
+      billSelect: bill
+    })
+    console.log("dave is here", this.state.billSelect)
+  }
+
   getChartData() {
 
   }
@@ -37,7 +84,7 @@ class Legislator extends Component {
   render() {
     const {legislator} = this.state;
     const {chartData} = this.state;
-    console.log(legislator);
+   
     const createLegislatorCard = this.state.legislator ? (
       <section>
         <h2 className="m-3"><span className="Legislator-h2-font">{legislator.title}</span> {legislator.full_name}</h2>
@@ -67,35 +114,14 @@ class Legislator extends Component {
       <div className="center"> Post Loading</div>
     )
 
-    const createCharts = this.state.chartData ? (
-      <section>
-        <h4 className="mb-4">View Session Votes</h4>
-        <Row className="justify-content-md-center">
-        <Col md="5">
-          <Card>
-            <CardBody>
-            <Chart chartData={chartData} billNumber="SB18-1002" chamber="Senate"/>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col md="5">
-          <Card>
-            <CardBody>
-            <Chart chartData={chartData} billNumber="SB18-1002" chamber="House"/>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </section>
-    ) : (
-      <div className="center">Chart Data Loading</div>
-    )
-
     return (
       <Container className="bg-white mt-4 mb-2 text-center p-4 Legislator-font">
         {createLegislatorCard}
-        {createCharts}
-        <Dropdown />
+        <Dropdown selectSubject={this.selectSubject}/>
+        <section>
+          {this.listBills()}
+        </section>
+        {/* <CreateCharts /> */}
       </Container>
     )
   }

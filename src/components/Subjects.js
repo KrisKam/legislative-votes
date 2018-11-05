@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Container, Row, Col, Collapse, Button, CardBody, Card, CardHeader} from "reactstrap";
+import {Container, Row, Col, Collapse, CardBody, Card, CardHeader} from "reactstrap";
 import {Link} from "react-router-dom";
 
 class Subjects extends Component {
@@ -41,10 +41,9 @@ class Subjects extends Component {
 
     const {bills} = this.state;
     const createRow = (bill) => {
-      // console.log(bill.bill)
       return ( 
         <Row key={bill.id}>
-          <Link to={`/bills/${bill.bill}`}>{bill.bill}</Link>: {bill.title}
+          <Link to={`/bills/${bill.bill}`}>{bill.bill}</Link>:  {bill.title}
         </Row>
       )
     }

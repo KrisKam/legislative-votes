@@ -19,7 +19,7 @@
   color: #014454;
 }
 
-.Home-button {
+.Home-button, .Dropdown-button {
   background-color: #d28500 !important;
   border: #d28500 !important;
 }

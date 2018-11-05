@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import Chart from "./Chart";
 
 
-class Bill extends Component {
+class CreateCharts extends Component {
 
   state = {
     bill: null,
@@ -174,4 +174,4 @@ class Bill extends Component {
   }
 }
 
-export default Bill;
+export default CreateCharts;
