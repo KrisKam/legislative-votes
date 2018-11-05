@@ -19,7 +19,7 @@ class Dropdown extends Component {
 
   render() {
     return (
-      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="mb-3">
         <DropdownToggle className="Dropdown-button" caret>
           Choose a Bill Subject
         </DropdownToggle>

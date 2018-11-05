@@ -48,6 +48,14 @@
   height: 180px;
 }
 
+#Legislator-hover:hover {
+  background-color: #F5F5F5
+}
+
+#Legislator-hover:active {
+  color: #d32729
+}
+
 .Footer-style {
   background: #012f54;
   color: #FFFFFF

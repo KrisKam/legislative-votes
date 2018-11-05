@@ -56,11 +56,11 @@ class Legislator extends Component {
         return bill.subject.includes(this.state.subject)
       }).map(bill => { 
           if (!bill.last_action.includes("Governor")) {
-            return <Row key={bill.bill}>
+            return <Row key={bill.bill} id="Legislator-hover">
             {bill.bill}:  {bill.title} (Lost or Postponed Indefinitely)
           </Row>
           } else {
-            return <Row onClick={()=>this.handleClick(bill)} key={bill.bill} name={bill.bill}>
+            return <Row onClick={()=>this.handleClick(bill)} key={bill.bill} name={bill.bill} id="Legislator-hover">
             {bill.bill}:  {bill.title} (View Vote)
           </Row>
           }
@@ -196,11 +196,13 @@ class Legislator extends Component {
     return (
       <Container className="bg-white mt-4 mb-2 text-center p-4 Legislator-font">
         {createLegislatorCard}
+        <div>
+          {this.renderCreateCharts()}
+        </div>
         <Dropdown selectSubject={this.selectSubject}/>
-        <section>
+        <section className="mx-5">
           {this.listBills()}
         </section>
-        {this.renderCreateCharts()}
       </Container>
     )
   }
