@@ -8,7 +8,7 @@ class CreateCharts extends Component {
     createCharts(data) {
       return data.chartDataSenate && data.chartDataHouse ? (
       <section>
-        <h4 className="mb-4">Final Votes</h4>
+        <h4 className="mb-4">{this.props.legislator} voted: {this.props.vote}</h4>
         <Row className="justify-content-md-center">
         <Col md="5">
           <Card>

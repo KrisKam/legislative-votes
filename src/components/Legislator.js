@@ -12,7 +12,8 @@ class Legislator extends Component {
     subject: "",
     billNum: "",
     bilId: "",
-    data: {}
+    data: {},
+    vote: ""
   }
 
   componentDidMount() {
@@ -69,13 +70,12 @@ class Legislator extends Component {
 
   handleClick = (bill) => {
       let billNum = bill.bill;
+      let id = this.props.match.params.post_id;
       this.setState ({
         billNum: bill.bill,
         billId: bill.id
       })
-      console.log(bill.bill)
-      console.log("billNum: ", billNum)
-      return fetch(`https://legislative-tracker.herokuapp.com/votes/${billNum}`)
+      fetch(`https://legislative-tracker.herokuapp.com/votes/${billNum}`)
         .then(result => result.json())
         .then(result => {
           let chartData = this.setChartData(result)
@@ -84,6 +84,14 @@ class Legislator extends Component {
           })
         }
        )  
+       fetch(`https://legislative-tracker.herokuapp.com/votes/${id}/${billNum}`)
+        .then(result => result.json())
+        .then(result => {
+          this.setState({
+            vote: result[0].vote
+          })
+        })
+        console.log(this.state.vote)
   }
 
   setChartData(result) {
@@ -147,7 +155,7 @@ class Legislator extends Component {
 
   renderCreateCharts() {
     return (this.state.billNum !== "") ? (
-    <CreateCharts data={this.state.data} billNum={this.state.billNum}/>
+    <CreateCharts data={this.state.data} billNum={this.state.billNum} vote={this.state.vote} legislator={this.state.legislator.full_name}/>
     ) : (
       <div></div>
     )
