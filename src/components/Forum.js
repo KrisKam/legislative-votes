@@ -13,10 +13,10 @@ class Forum extends Component {
       <Container className="bg-white m-5">
         <h2 className="text-center pt-4">Comments Forum</h2>
         <Row>
-          <Col>
+          <Col md="7">
             <Comments />
           </Col>
-          <Col>
+          <Col md="5">
             <CommentsInput />
           </Col>
         </Row>

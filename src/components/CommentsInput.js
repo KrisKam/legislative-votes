@@ -9,27 +9,21 @@ class Comments extends Component {
     
     return (
       <section className="my-4 mx-5">
-        <h3>Add a comment:</h3>
+        <h4 className="mb-4">Add a comment:</h4>
         <Form>
-          <Row form>
-            <Col md={8}>
-              <FormGroup>
-                <Label for="user_name">Username</Label>
-                <Input type="email" name="email" id="exampleEmail" />
-              </FormGroup>
-            </Col>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="date">Date</Label>
-                <Input type="date" name="date" id="date" />
-              </FormGroup>
-            </Col>
-          </Row>
+          <FormGroup>
+            <Label for="user_name">Username</Label>
+            <Input type="email" name="email" id="exampleEmail" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="date">Date</Label>
+            <Input type="date" name="date" id="date" />
+          </FormGroup>
           <FormGroup>
             <Label for="comment">Text Area</Label>
             <Input type="textarea" name="comment" id="comment" />
           </FormGroup>
-          <Button>Submit Comment</Button>
+          <Button size="sm" className="Form-button">Submit Comment</Button>
         </Form>
       </section>
     )
