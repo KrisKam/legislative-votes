@@ -68,6 +68,9 @@ class Header extends Component {
                   </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <NavItem className="mt-2">
+                <Link to="/forum" className="Header-nav-font px-3">Forum</Link>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
