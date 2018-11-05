@@ -41,6 +41,10 @@ class Bill extends Component {
   }
 
   setChartData(result) {
+    if (result[0] === undefined) { 
+      console.log("false")
+      return
+    }
     let billNumber = result[0].bill;
     let votes = {};
     result.forEach(voteCount => {
@@ -109,9 +113,9 @@ class Bill extends Component {
     const createBillPage = this.state.bill ? (
       <section className="Bill-section">
         <Link to={bill.bill_url}>
-          <h2 className="mt-3 Bill-h2">{bill.bill}</h2>
+          <h3 className="mt-3 Bill-h2">{bill.bill}</h3>
         </Link>
-        <h3>{bill.title}</h3> 
+        <h4>{bill.title}</h4> 
         <Row>
         <Col sm="1"></Col>
         <Col sm="10">
