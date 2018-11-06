@@ -3,7 +3,8 @@
 }
 
 #App-background {
-  background-color: #012f54
+  background-color: #012f54;
+  height: 100vh
 }
 
 .Header-font-weight {
@@ -22,6 +23,15 @@
 .Home-button, .Dropdown-button, .Form-button {
   background-color: #d28500 !important;
   border: #d28500 !important;
+}
+
+.Home-statistics {
+  background-color: #c60b0e;
+  color: #F5F5F5
+}
+
+.Home-h1 {
+  color: #F5F5F5;
 }
 
 .Bills-h3, .Legislators-h3, .Bill-h2 {
@@ -58,7 +68,11 @@
 
 .Footer-style {
   background: #012f54;
-  color: #FFFFFF
+  color: #FFFFFF;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  width:100%;
 }
 
 /* darker blue:  #012f54   #035 */

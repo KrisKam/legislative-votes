@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, FormGroup, Label, Input, FormText, Row, Col} from "reactstrap";
+import {Button, Form, FormGroup, Label, Input} from "reactstrap";
 
 
 class Comments extends Component {
@@ -9,6 +9,7 @@ class Comments extends Component {
     date: "",
     comment: ""
   }
+
 
   handleChange = (e) => {
     const target = e.target;
@@ -41,8 +42,28 @@ class Comments extends Component {
     .then(setTimeout(function(){window.location.reload() }, 2000))
   }
 
+  handleUpdate = (e) => {
+  e.preventDefault();
+  const body = JSON.stringify(this.state);
+  return fetch(`https://j-j-data.herokuapp.com/${this.props.selectedComment.id}`, {
+    method: "PUT",
+    mode: "cors",
+    headers: { "content-type": "application/json" },
+    body: body
+  })
+  .then(response => console.log(response))
+  .then(
+    this.setState({
+      user_name: "",
+      date: "",
+      comment: "",
+    })
+  )
+  .then(setTimeout(function(){window.location.reload() }, 2000))
+}
+
   render() {
-    
+
     return (
       <section className="my-4 mx-5">
         <h4 className="mb-4">Add a comment:</h4>
