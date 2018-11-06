@@ -27,7 +27,7 @@ class Forum extends Component {
     })
   }
 
-  signalUpdate = (e) => {
+  singleUpdate = (e) => {
     e.preventDefault();
     console.log("target ", e.target.id)
     console.log("array? ", this.state.comments)
@@ -44,6 +44,25 @@ class Forum extends Component {
       return singleComment
   }
 
+  handleDelete = (e) => {
+  e.preventDefault();
+  // console.log("id ", e.target.id)
+  let id = e.target.id;
+  return fetch(`https://legislative-tracker.herokuapp.com/comments/${id}`, {
+    method: "DELETE",
+    mode: "cors",
+    headers: { "content-type": "application/json" }
+  })
+  .then(response => console.log(response))
+  .then(
+    this.setState({
+      user_name: "",
+      date: "",
+      comment: "",
+    })
+  )
+  .then(setTimeout(function(){window.location.reload() }, 2000))
+}
 
   render() {
     
@@ -56,8 +75,8 @@ class Forum extends Component {
               <CardTitle>{comment.user_name}</CardTitle>
               <CardSubtitle>{comment.date}</CardSubtitle>
               <CardText>{comment.comment}</CardText>
-              <Button size="sm" className="Form-button" onClick={this.signalUpdate} id={comment.id}>Update</Button>
-              <Button size="sm" color="danger" className="mx-3" onClick={this.handleDelete}>Delete</Button>
+              <Button size="sm" className="Form-button" onClick={this.singleUpdate} id={comment.id}>Update</Button>
+              <Button size="sm" color="danger" className="mx-3" onClick={this.handleDelete} id={comment.id}>Delete</Button>
             </CardBody>
           </Card>
         )
@@ -75,7 +94,7 @@ class Forum extends Component {
           </section>
           </Col>
           <Col md="5">
-            {/* <CommentsInput /> */}
+            <CommentsInput selectedComment={this.state.selectedComment}/>
           </Col>
         </Row>
       </Container>
