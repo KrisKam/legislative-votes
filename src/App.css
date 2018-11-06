@@ -4,7 +4,9 @@
 
 #App-background {
   background-color: #012f54;
-  height: 100vh
+  margin:0;
+  padding:0;
+  /* height: 100vh */
 }
 
 .Header-font-weight {
@@ -30,8 +32,13 @@
   color: #F5F5F5
 }
 
-.Home-h1 {
+.Home-h1, .Home-subhead {
   color: #F5F5F5;
+}
+
+.Form-button-green {
+  background-color: #048219 !important;
+  border: #048219 !important;
 }
 
 .Bills-h3, .Legislators-h3, .Bill-h2 {
@@ -56,6 +63,10 @@
 
 .Legislator-img {
   height: 180px;
+}
+
+.Legislator-div {
+  height: 200px;
 }
 
 #Legislator-hover:hover {

@@ -10,7 +10,12 @@ const Home = () => {
   <Container className="py-4">
     <Row className="text-center Home-h1 mt-3">
       <Col>
-        <h1>Legislative Vote Tracker</h1>
+        <h1>Track Legislative Votes</h1>
+      </Col>
+    </Row>
+    <Row className="text-center Home-subhead mt-2">
+      <Col>
+        Search for vote results by bill or legislator
       </Col>
     </Row>
     <Row className="my-5">
@@ -38,7 +43,7 @@ const Home = () => {
         </Card>
       </Col>
     </Row>
-    <section className="Home-statistics text-center p-4 my-3">
+    <section className="Home-statistics text-center p-3 my-3">
       <Row>
         <Col>
         <h5>2018 Statistical Summary</h5>

@@ -22,7 +22,7 @@ class Forum extends Component {
       this.setState({
         comments: result
       })
-      console.log("state: ", result)
+      // console.log("state: ", result)
     })
   }
 
@@ -51,14 +51,14 @@ class Forum extends Component {
     headers: { "content-type": "application/json" }
   })
   .then(response => console.log(response))
-  .then(
+  .then(() =>
     this.setState({
       user_name: "",
       date: "",
-      comment: "",
+      comment: ""
     })
   )
-  .then(setTimeout(function(){window.location.reload() }, 2000))
+  .then(function(){window.location.reload() })
 }
 
   render() {
