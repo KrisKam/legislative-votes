@@ -20,10 +20,11 @@ class Legislator extends Component {
     this.getLegislatorData()
     this.getBills()
   }
-
+ 
   getLegislatorData() {
     let id = this.props.match.params.post_id;
     return fetch(`https://legislative-tracker.herokuapp.com/legislators/${id}`)
+    // return fetch(`http://localhost:5555/legislators/${id}`)
       .then(result => result.json())
       .then(result => {
         this.setState({
@@ -33,6 +34,7 @@ class Legislator extends Component {
   }
 
   getBills() {
+    // return fetch("http://localhost:5555/bills")
     return fetch("https://legislative-tracker.herokuapp.com/bills")
     .then(result => result.json())
     .then(result => {
@@ -76,6 +78,7 @@ class Legislator extends Component {
         billId: bill.id
       })
       fetch(`https://legislative-tracker.herokuapp.com/votes/${billNum}`)
+      // fetch(`http://localhost:5555/votes/${billNum}`)
         .then(result => result.json())
         .then(result => {
           let chartData = this.setChartData(result)
@@ -85,6 +88,7 @@ class Legislator extends Component {
         }
        )  
        fetch(`https://legislative-tracker.herokuapp.com/votes/${id}/${billNum}`)
+      //  fetch(`http://localhost:5555/votes/${id}/${billNum}`)
         .then(result => result.json())
         .then(result => {
           this.setState({

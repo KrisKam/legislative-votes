@@ -14,6 +14,7 @@ class Legislators extends Component {
 
   getLegislators = () => {
     return fetch("https://legislative-tracker.herokuapp.com/legislators")
+    // fetch(`http://localhost:5555/legislators`)
       .then(result => result.json())
       .then(result => {
         this.setState({
