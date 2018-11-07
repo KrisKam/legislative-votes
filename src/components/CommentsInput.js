@@ -12,6 +12,11 @@ class Comments extends Component {
 
 
   handleChange = (e) => {
+    this.setState({
+      user_name: this.props.selectedComment.user_name,
+      date: this.props.selectedComment.date,
+      comment: this.props.selectedComment.comment
+    })
     const target = e.target;
     const value = target.value;
     const name = target.name;
