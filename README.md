@@ -13,5 +13,7 @@ I used React and Firebase to deploy the frontend and Heroku to deploy the backen
 ## Links
 
 [Hosting URL](https://legislative-tracker.firebaseapp.com)
+
 [Backend Repo](https://github.com/KrisKam/legislative-database)
+
 [Scraping Repo](https://github.com/KrisKam/leg-datav)
