@@ -30,7 +30,7 @@ const Home = () => {
       </Col>
       <Col>
         <div className="text-center align-middle" >
-         <img  lg="4" src={capitol} alt="Capitol Icon" className="mt-3 ml-3 d-none d-lg-block" />
+         <img  lg="4" src={capitol} alt="Capitol Icon" className="mt-3 mx-auto d-none d-lg-block" />
         </div>
       </Col>
       <Col xs="12" lg="4">
