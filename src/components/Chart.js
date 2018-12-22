@@ -17,12 +17,15 @@ class Chart extends Component {
             title: {
               display: true,
               text: `${this.props.chamber} Vote: ${this.props.billNumber} `,
-              fontSize: 20,
+              fontSize: 15,
               fontColor: "#012f54" 
             },
             legend: {
               display: true,
-              position: "top"
+              position: "top",
+              labels: {
+                fontSize: 8,
+              }
             },
             scales: {
               xAxes: [{ stacked: true }],
@@ -30,7 +33,8 @@ class Chart extends Component {
                 stacked: true,
                 ticks: {beginAtZero:true} 
               }]
-            }
+            },
+            maintainAspectRatio: false,
           }}
         />
       </div>

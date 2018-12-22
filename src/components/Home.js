@@ -19,7 +19,7 @@ const Home = () => {
       </Col>
     </Row>
     <Row className="my-5">
-      <Col xs="6" sm="4">
+      <Col xs="12" lg="4">
         <Card body className="text-center mt-3" id="Home-card">
           <CardTitle>Legislators</CardTitle>
           <CardText>The General Assembly consists of 100 members - 35 Senators and 65 Representatives. Senators serve four-year terms, while Representatives serve two-year terms. </CardText>
@@ -30,10 +30,10 @@ const Home = () => {
       </Col>
       <Col>
         <div className="text-center align-middle" >
-         <img  sm="4" src={capitol} alt="Capitol Icon" className="mt-3" />
+         <img  lg="4" src={capitol} alt="Capitol Icon" className="mt-3 ml-3 d-none d-lg-block" />
         </div>
       </Col>
-      <Col xs="6" sm="4">
+      <Col xs="12" lg="4">
         <Card body className="text-center mt-3" id="Home-card">
           <CardTitle>Bills</CardTitle>
           <CardText>Passage of a bill requires a majority: 33 votes in the House and 18 in the Senate. See summaries of all bills introduced in the 2018 and votes for bills passed by both chambers.</CardText>
