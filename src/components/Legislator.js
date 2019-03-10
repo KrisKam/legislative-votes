@@ -177,7 +177,7 @@ class Legislator extends Component {
         <h2 className="m-3"><span className="Legislator-h2-font">{legislator.title}</span> {legislator.full_name}</h2>
         <Row className="my-4">
           <Col sm="3">
-            <img src={legislator.headshot} alt={legislator.full_name + "Headshot"} className="Legislator-img"/>
+            <img src={require(`../images/headshots/${legislator.id}.jpg`)} alt={legislator.full_name + "Headshot"} className="Legislator-img"/>
           </Col>
           <Col sm="8" className="text-left bg-light">
             <Row className="py-2">
